@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ورشة أدوات المعلم في منصة نور</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F6FD; --surface: #FFFFFF; --ink: #1E1B3A; --muted: #5F5B7E;
+  --brand: #6A5FD8; --brand-deep: #3A2F9E; --green: #00A63E; --green-soft: #E3F7EA;
+  --line: #E4E1F5; --tint: #EFEDFC;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131127; --surface: #1D1A38; --ink: #EEEDF8; --muted: #AAA6C9;
+    --brand: #9A91F0; --brand-deep: #C9C4FA; --green: #3DD47A; --green-soft: #173528;
+    --line: #2E2A52; --tint: #252147; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #131127; --surface: #1D1A38; --ink: #EEEDF8; --muted: #AAA6C9;
+  --brand: #9A91F0; --brand-deep: #C9C4FA; --green: #3DD47A; --green-soft: #173528;
+  --line: #2E2A52; --tint: #252147; color-scheme: dark;
+}
+:root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 64px); scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+*, *::before, *::after { box-sizing: inherit; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Readex Pro", Tahoma, "Segoe UI", Arial, sans-serif; font-size: 17px; line-height: 1.75; }
+img, video { max-width: 100%; display: block; }
+a { color: var(--brand); }
+:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; border-radius: 6px; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+/* hero */
+.hero { background: linear-gradient(160deg, #3A2F9E, #6A5FD8); color: #fff; padding: 40px 0 34px; position: relative; overflow: hidden; }
+.hero .wrap { display: grid; grid-template-columns: auto 1fr; gap: 22px; align-items: center; }
+.logo { background: #fff; border-radius: 22px; padding: 14px 16px; width: 116px; box-shadow: 0 8px 24px rgba(20,14,70,.25); }
+.hero h1 { font-size: clamp(26px, 6vw, 40px); line-height: 1.25; margin: 0 0 6px; font-weight: 700; }
+.hero p { margin: 0; color: #DCD8FF; font-size: 16px; }
+.hero .by { margin-top: 12px; display: inline-block; background: #00BA44; color: #fff; padding: 4px 14px; border-radius: 999px; font-size: 14px; font-weight: 600; }
+.spark { position: absolute; width: 46px; height: 46px; left: 26px; bottom: 18px; fill: #00BA44; opacity: .9; }
+@media (max-width: 520px) { .hero .wrap { grid-template-columns: 1fr; } .logo { width: 96px; } }
+
+/* progress + nav */
+.bar { position: sticky; top: 0; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.bar { top: env(safe-area-inset-top, 0px); }
+.nav { display: flex; gap: 8px; overflow-x: auto; padding: 10px 20px; max-width: 760px; margin: 0 auto; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav a { flex: none; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--ink); background: var(--tint); padding: 6px 12px 6px 14px; border-radius: 999px; font-size: 14px; font-weight: 500; }
+.nav .n { width: 22px; height: 22px; border-radius: 50%; background: var(--brand); color: #fff; display: grid; place-items: center; font-size: 12px; }
+.nav a.is-done .n { background: var(--green); }
+.progress { max-width: 760px; margin: 0 auto; padding: 0 20px 10px; display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+.track { flex: 1; height: 6px; background: var(--tint); border-radius: 6px; overflow: hidden; }
+.fill { height: 100%; width: 0; background: var(--green); border-radius: 6px; transition: width .4s; }
+
+/* intro */
+.intro { padding: 28px 0 6px; }
+.intro h2 { font-size: 21px; margin: 0 0 6px; color: var(--brand-deep); }
+.intro p { margin: 0; color: var(--muted); }
+
+/* goal */
+.goal { padding: 30px 0 34px; border-bottom: 1px solid var(--line); }
+.goal-head { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.goal-num { font-size: 56px; font-weight: 700; line-height: 1; color: var(--brand); min-width: 44px; text-align: center; }
+.goal-of { margin: 0; font-size: 13px; color: var(--muted); }
+.goal h2 { margin: 0; font-size: clamp(22px, 5vw, 28px); line-height: 1.3; }
+.lead { margin: 0 0 16px; }
+.points { list-style: none; margin: 0 0 20px; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.points li { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; }
+.points b { color: var(--brand-deep); font-weight: 600; font-size: 15px; }
+.points span { color: var(--muted); font-size: 14px; line-height: 1.6; }
+@media (max-width: 600px) { .points { grid-template-columns: 1fr; } }
+.player { margin: 0 0 12px; background: #2A2270; border-radius: 18px; padding: 8px; }
+.player video { width: 100%; aspect-ratio: 16/9; border-radius: 12px; background: #000; }
+.player figcaption { color: #CFCBF5; font-size: 13px; padding: 8px 6px 2px; }
+.steps { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; margin-bottom: 14px; }
+.steps summary { cursor: pointer; padding: 12px 16px; font-weight: 600; color: var(--brand-deep); }
+.steps ol { margin: 0; padding: 0 40px 14px 16px; }
+.steps li { padding: 3px 0; }
+.tip { margin: 0 0 18px; padding: 12px 16px; border-right: 4px solid var(--brand); background: var(--tint); border-radius: 10px; font-size: 15.5px; }
+.task { background: var(--green-soft); border-radius: 18px; padding: 18px 20px; }
+.task-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.task h3 { margin: 0; color: var(--green); font-size: 19px; }
+.time { background: var(--surface); color: var(--green); font-weight: 600; font-size: 14px; padding: 2px 12px; border-radius: 999px; }
+.task ol { margin: 10px 0; padding-right: 22px; }
+.ok { margin: 0 0 12px; font-size: 15px; }
+.done { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600; background: var(--surface); padding: 8px 14px; border-radius: 12px; }
+.done input { width: 20px; height: 20px; accent-color: var(--green); }
+
+footer { padding: 34px 0 44px; text-align: center; color: var(--muted); font-size: 15px; }
+footer strong { display: block; color: var(--brand-deep); font-size: 20px; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <img class="logo" src="data:image/png;base64,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" alt="شعار منصة نور">
+    <div>
+      <h1>أدوات المعلم في منصة نور</h1>
+      <p>ورشة تطبيقية: خمسة محاور، ولكل محور فيديو بالخطوات وتطبيق عملي على حسابك.</p>
+      <span class="by">إعداد الأستاذة عبير صالح اليحمدية</span>
+    </div>
+  </div>
+  <svg class="spark" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 0 C55 40 60 45 100 50 C60 55 55 60 50 100 C45 60 40 55 0 50 C40 45 45 40 50 0Z"/></svg>
+</header>
+
+<div class="bar">
+  <nav class="nav" aria-label="محاور الورشة"><a href="#rooms" data-goal="rooms"><span class="n">1</span><span>غرف النقاش</span></a><a href="#feedback" data-goal="feedback"><span class="n">2</span><span>التغذية الراجعة بعد التصحيح</span></a><a href="#scorm" data-goal="scorm"><span class="n">3</span><span>رفع درس تفاعلي SCORM</span></a><a href="#attach" data-goal="attach"><span class="n">4</span><span>مرفقات كل درس</span></a><a href="#library" data-goal="library"><span class="n">5</span><span>المستودع الرقمي</span></a></nav>
+  <div class="progress"><div class="track"><div class="fill" id="fill"></div></div><span id="count">أنجزت 0 من 5</span></div>
+</div>
+
+<main class="wrap">
+  <div class="intro">
+    <h2>كيف تستفيدين من الورشة؟</h2>
+    <p>شاهدي فيديو كل محور، ثم طبّقي المهمة مباشرة على حسابك في lms.moe.gov.om، وعلّمي «أنجزت» ليتقدّم شريط الإنجاز.</p>
+  </div>
+  
+<section class="goal" id="rooms">
+  <header class="goal-head">
+    <span class="goal-num" aria-hidden="true">1</span>
+    <div><p class="goal-of">المحور 1 من 5</p><h2>غرف النقاش</h2></div>
+  </header>
+  <p class="lead">مساحة حوار داخل المنصة يتبادل فيها الطلبة الآراء، فتنمو مهارة التفكير الناقد، ويجد الطالب الأقل مشاركة في الصف فرصة آمنة للتعبير.</p>
+  <ul class="points"><li><b>تعلّم تشاركي</b><span>يبني الطلبة المعرفة معًا</span></li><li><b>تفكير ناقد</b><span>يصوغ الطالب رأيه ويدعمه بالأمثلة</span></li><li><b>امتداد للحصة</b><span>نقاش مستمر بمتابعة المعلم</span></li></ul>
+  <figure class="player">
+    <video controls playsinline preload="metadata" src="videos/tatbeeq1.mp4" aria-label="فيديو غرف النقاش"></video>
+    <figcaption>فيديو من لقطات حقيقية لمنصة نور · 8 خطوة</figcaption>
+  </figure>
+  <details class="steps">
+    <summary>الخطوات مكتوبة</summary>
+    <ol><li>من الصفحة الرئيسية اضغط «غرف النقاش»</li><li>اضغط زر «إنشاء غرفة»</li><li>اكتب اسم الغرفة و«تعليمات غرفة» وآداب الحوار</li><li>اختر «نشر لطلبة» أو «نشر لمجموعات» ثم حدّد الصفوف</li><li>اضغط «حفظ» لإنشاء الغرفة</li><li>تفتح الغرفة باسمها وتعليماتها كما سيراها الطلبة</li><li>اضغط «إضافة موضوع جديد» واكتب سؤالًا محفّزًا</li><li>أدر النقاش: الموافقة أو الرفض أو إيقاف التعليقات</li></ol>
+  </details>
+  <p class="tip">اطرح سؤالًا مفتوحًا يربط الدرس بحياة الطالب، مثل: «لماذا نحتاج إلى كلمة مرور قوية؟ اذكر موقفًا من حياتك». السؤال الذي يُجاب عنه بكلمة واحدة ينهي النقاش.</p>
+  <div class="task">
+    <div class="task-top"><h3>طبّق الآن على حسابك</h3><span class="time">10 دقائق</span></div>
+    <ol><li>اختر درسًا قادمًا من دروس مادتك</li><li>أنشئ غرفة نقاش بعنوان مرتبط بالدرس واكتب آداب النقاش</li><li>أضف موضوعًا جديدًا بسؤال مفتوح</li><li>انشر الغرفة لصف واحد وعاينها</li></ol>
+    <p class="ok"><b>أنجزت بنجاح إذا:</b> تظهر الغرفة للطلبة، والسؤال لا يُجاب عنه بكلمة واحدة.</p>
+    <label class="done"><input type="checkbox" data-done="rooms"> أنجزت هذا التطبيق</label>
+  </div>
+</section>
+<section class="goal" id="feedback">
+  <header class="goal-head">
+    <span class="goal-num" aria-hidden="true">2</span>
+    <div><p class="goal-of">المحور 2 من 5</p><h2>التغذية الراجعة بعد التصحيح</h2></div>
+  </header>
+  <p class="lead">الدرجة وحدها لا تخبر الطالب ماذا يفعل بعد ذلك. التعليق الفردي يوضّح له أين هو وكيف يتقدّم، ويعزّز ثقته ودافعيته.</p>
+  <ul class="points"><li><b>نقطة قوة</b><span>«أحسنت في ترتيب خطوات حفظ الملف»</span></li><li><b>ما يحتاج تطويرًا</b><span>«انتبه لاختيار المجلد المناسب قبل الحفظ»</span></li><li><b>خطوة تالية</b><span>«جرّب حفظ ملف جديد باسم مختلف»</span></li></ul>
+  <figure class="player">
+    <video controls playsinline preload="metadata" src="videos/tatbeeq2.mp4" aria-label="فيديو التغذية الراجعة بعد التصحيح"></video>
+    <figcaption>فيديو من لقطات حقيقية لمنصة نور · 9 خطوة</figcaption>
+  </figure>
+  <details class="steps">
+    <summary>الخطوات مكتوبة</summary>
+    <ol><li>من بطاقة المادة في الصفحة الرئيسية اختر «المهام الإلكترونية»</li><li>افتح القائمة ▼ بجانب الواجب واختر «التسليمات»</li><li>تظهر قائمة تسليمات الطلبة: اضغط على اسم الطالب لفتح تسليمه</li><li>اضغط «تنزيل» لفتح ملف إجابة الطالب</li><li>راجع عمل الطالب بعناية قبل رصد الدرجة</li><li>اختر الدرجة من القائمة بجانب السؤال</li><li>اكتب تعليقًا فرديًا للطالب في خانة التعليقات</li><li>اضغط «درجة التسليم» لحفظ الدرجة والتعليق</li><li>تظهر «تم التصحيح» والنسبة المئوية في قائمة التسليمات</li></ol>
+  </details>
+  <p class="tip">ابدأ تعليقك بعبارات جاهزة: «أعجبني أنك…»، «انتبه إلى…»، «في المرة القادمة جرّب…».</p>
+  <div class="task">
+    <div class="task-top"><h3>طبّق الآن على حسابك</h3><span class="time">10 دقائق</span></div>
+    <ol><li>افتح واجبًا إلكترونيًا سلّمه طلبتك</li><li>صحّح تسليمين لطالبين بمستويين مختلفين</li><li>اكتب لكل منهما تعليقًا ثلاثيًا: قوة، تطوير، خطوة تالية</li><li>احفظ بزر «درجة التسليم» وتأكد من «تم التصحيح»</li></ol>
+    <p class="ok"><b>أنجزت بنجاح إذا:</b> يذكر كل تعليق شيئًا محددًا من عمل الطالب نفسه، لا عبارة عامة.</p>
+    <label class="done"><input type="checkbox" data-done="feedback"> أنجزت هذا التطبيق</label>
+  </div>
+</section>
+<section class="goal" id="scorm">
+  <header class="goal-head">
+    <span class="goal-num" aria-hidden="true">3</span>
+    <div><p class="goal-of">المحور 3 من 5</p><h2>رفع درس تفاعلي SCORM</h2></div>
+  </header>
+  <p class="lead">SCORM معيار يغلّف الدرس التفاعلي في ملف ZIP واحد، فيعمل داخل منصة نور دون روابط خارجية، ويسجّل تقدّم الطالب ونتيجته.</p>
+  <ul class="points"><li><b>صمّم الدرس</b><span>بأداة تأليف مثل iSpring Free أو Articulate أو Lumi</span></li><li><b>انشره بصيغة SCORM 1.2</b><span>واحفظ ملف ZIP دون فك الضغط</span></li><li><b>ارفعه على نور</b><span>من «المكتبة الرقمية» ← «مكتبة الدروس التفاعلية»</span></li></ul>
+  <figure class="player">
+    <video controls playsinline preload="metadata" src="videos/tatbeeq3.mp4" aria-label="فيديو رفع درس تفاعلي SCORM"></video>
+    <figcaption>فيديو من لقطات حقيقية لمنصة نور · 12 خطوة</figcaption>
+  </figure>
+  <details class="steps">
+    <summary>الخطوات مكتوبة</summary>
+    <ol><li>من بطاقة المادة انتقل إلى صفحة «إدارة المحتوى» في القائمة</li><li>اختر «المكتبة الرقمية»</li><li>من المستودع الرقمي اختر «مكتبة الدروس التفاعلية»</li><li>اضغط «رفع درس تفاعلي جديد»</li><li>اكتب العنوان ووصفًا محفّزًا للطلبة واختر اللغة</li><li>اضغط منطقة «إختر ملفًا» لرفع الدرس</li><li>اختر ملف ZIP من جهازك ثم اضغط «Open»</li><li>يظهر اسم الملف المرفوع بصيغة zip</li><li>اختر نوع الدرس التفاعلي «SCORM»</li><li>اختر طريقة النشر: «نشر لفصول» أو «نشر لطلبة» أو «نشر لمجموعات»</li><li>حدّد الفصول التي سيصلها الدرس أو «اختيار الكل»</li><li>اضغط «رفع» لنشر الدرس التفاعلي للطلبة</li></ol>
+  </details>
+  <p class="tip">إذا ظهر خطأ عند الرفع فغالبًا فُكّ ضغط الملف أو اختيرت صيغة غير SCORM. صورة الغلاف اختيارية.</p>
+  <div class="task">
+    <div class="task-top"><h3>طبّق الآن على حسابك</h3><span class="time">15 دقيقة</span></div>
+    <ol><li>جهّز عرضًا قصيرًا من 3 شرائح وسؤال تقويم واحد</li><li>انشره من أداة التأليف بصيغة SCORM 1.2</li><li>ارفع ملف ZIP في «مكتبة الدروس التفاعلية»</li><li>انشره لفصل واحد بزر «رفع» ثم عاينه</li></ol>
+    <p class="ok"><b>أنجزت بنجاح إذا:</b> يفتح الدرس داخل المنصة ويُسجَّل إكمال الطالب أو درجته.</p>
+    <label class="done"><input type="checkbox" data-done="scorm"> أنجزت هذا التطبيق</label>
+  </div>
+</section>
+<section class="goal" id="attach">
+  <header class="goal-head">
+    <span class="goal-num" aria-hidden="true">4</span>
+    <div><p class="goal-of">المحور 4 من 5</p><h2>مرفقات كل درس</h2></div>
+  </header>
+  <p class="lead">درس + فيديو قصير + مهمة إلكترونية = درس مكتمل. يجد فيه الطالب الغائب ما يعوّضه، ويراجع كل طالب بإيقاعه الخاص.</p>
+  <ul class="points"><li><b>الدرس</b><span>عرض أو ملف شرح يغطي أهداف الدرس</span></li><li><b>الفيديو</b><span>مقطع من 3 إلى 5 دقائق يوضّح التطبيق</span></li><li><b>المهمة</b><span>واجب أو اختبار قصير يقيس الهدف</span></li></ul>
+  <figure class="player">
+    <video controls playsinline preload="metadata" src="videos/tatbeeq4.mp4" aria-label="فيديو مرفقات كل درس"></video>
+    <figcaption>فيديو من لقطات حقيقية لمنصة نور · 13 خطوة</figcaption>
+  </figure>
+  <details class="steps">
+    <summary>الخطوات مكتوبة</summary>
+    <ol><li>من بطاقة المادة: «إدارة المحتوى» ← «مرفقات المادة»</li><li>اضغط «تحميل مرفق جديد»</li><li>اكتب عنوان الدرس ووصفًا محفّزًا للطلبة</li><li>اختر لغة المحتوى</li><li>اضغط «اختر ملف» لرفع ملف الدرس</li><li>اختر ملف الدرس من جهازك ثم اضغط «Open»</li><li>يظهر اسم الملف المرفوع أسفل منطقة الرفع</li><li>فعّل «إسمح للطالب بالتنزيل» وحدّد تاريخ النشر</li><li>اربط المرفق بالتحضير: اختر الدرس من القائمة</li><li>حدّد مستوى النشر ثم مكان الدرس في شجرة الكتاب</li><li>اختر الدرس من الشجرة لتظهر مخرجاته التعليمية</li><li>اختر «نشر لفصول» وحدّد الفصول أو «اختيار الكل»</li><li>اضغط «رفع» لنشر المرفق للطلبة</li></ol>
+  </details>
+  <p class="tip">اربط كل مرفق بالتحضير وبالدرس في شجرة الكتاب، ليظهر للطلبة في مكانه الصحيح.</p>
+  <div class="task">
+    <div class="task-top"><h3>طبّق الآن على حسابك</h3><span class="time">15 دقيقة</span></div>
+    <ol><li>اختر درسًا واحدًا من خطتك الأسبوعية</li><li>أرفق عرض الدرس أو ملف الشرح من «مرفقات المادة»</li><li>أضف فيديو قصيرًا يوضّح التطبيق</li><li>أنشئ مهمة إلكترونية قصيرة مرتبطة بهدف الدرس</li></ol>
+    <p class="ok"><b>أنجزت بنجاح إذا:</b> يجد الطالب الغائب في صفحة الدرس ما يكفيه ليتعلّم وحده.</p>
+    <label class="done"><input type="checkbox" data-done="attach"> أنجزت هذا التطبيق</label>
+  </div>
+</section>
+<section class="goal" id="library">
+  <header class="goal-head">
+    <span class="goal-num" aria-hidden="true">5</span>
+    <div><p class="goal-of">المحور 5 من 5</p><h2>المستودع الرقمي</h2></div>
+  </header>
+  <p class="lead">مكتبة مركزية داخل نور فيها مكتبات للفيديو والصوتيات والوثائق والعروض والصور والدروس التفاعلية والألعاب التعليمية، ويمكن الرفع إليها من الجهاز أو YouTube أو جوجل درايف.</p>
+  <ul class="points"><li><b>مكتبات متنوعة</b><span>فيديو، صوتيات، وثائق، عروض، صور</span></li><li><b>مصادر متعددة</b><span>الجهاز، YouTube، Vimeo، OneDrive، جوجل درايف</span></li><li><b>متابعة الطلبة</b><span>عبر «إحصائيات قائمة الطلبة»</span></li></ul>
+  <figure class="player">
+    <video controls playsinline preload="metadata" src="videos/tatbeeq5.mp4" aria-label="فيديو المستودع الرقمي"></video>
+    <figcaption>فيديو من لقطات حقيقية لمنصة نور · 15 خطوة</figcaption>
+  </figure>
+  <details class="steps">
+    <summary>الخطوات مكتوبة</summary>
+    <ol><li>من بطاقة المادة: «إدارة المحتوى» ← «المكتبة الرقمية»</li><li>يفتح المستودع الرقمي بمكتباته: اختر «مكتبة الفيديو»</li><li>اضغط «رفع ملف فيديو جديد»</li><li>اكتب عنوان الفيديو</li><li>أضف وصفًا محفّزًا للطلبة</li><li>اختر لغة المحتوى</li><li>اختر مصدر الفيديو: «الملفات» من جهازك أو YouTube أو جوجل درايف</li><li>اضغط «اختر ملف»</li><li>اختر ملف الفيديو من جهازك ثم اضغط «Open»</li><li>يظهر اسم الفيديو المرفوع (الصيغ المقبولة mp4 و mov فقط)</li><li>فعّل «إسمح للطالب بالتنزيل»</li><li>حدّد تاريخ النشر واربط الفيديو بالتحضير والدرس</li><li>اختر الدرس من شجرة الكتاب</li><li>اختر «نشر لفصول» وحدّد الفصول أو «اختيار الكل»</li><li>اضغط «رفع» لنشر الفيديو للطلبة</li></ol>
+  </details>
+  <p class="tip">الطريقة نفسها في الفيديو تنطبق على بقية المكتبات: الوثائق والعروض والصور والصوتيات.</p>
+  <div class="task">
+    <div class="task-top"><h3>طبّق الآن على حسابك</h3><span class="time">10 دقائق</span></div>
+    <ol><li>ادخل «المكتبة الرقمية» من بطاقة مادتك</li><li>اختر «مكتبة الفيديو» ثم «رفع ملف فيديو جديد»</li><li>ارفع فيديو قصيرًا لدرسك واربطه بالتحضير والدرس</li><li>انشره لفصل واحد ثم راجعه في «عرض المحتويات الخاصة»</li></ol>
+    <p class="ok"><b>أنجزت بنجاح إذا:</b> يظهر الفيديو للطلبة في درسه، وتتابعه من «إحصائيات قائمة الطلبة».</p>
+    <label class="done"><input type="checkbox" data-done="library"> أنجزت هذا التطبيق</label>
+  </div>
+</section>
+</main>
+
+<footer class="wrap">
+  <strong>بالتوفيق في رحلتك مع منصة نور</strong>
+  حين يكتمل الدرس داخل المنصة، يصل إلى كل طالب.
+</footer>
+
+<script>
+(function () {
+  var KEY = "noor-workshop-done";
+  var done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { done = {}; }
+  var boxes = document.querySelectorAll("[data-done]");
+  function render() {
+    var n = 0;
+    boxes.forEach(function (b) {
+      var id = b.getAttribute("data-done"); b.checked = !!done[id]; if (done[id]) n++;
+      var link = document.querySelector('.nav a[data-goal="' + id + '"]');
+      if (link) link.classList.toggle("is-done", !!done[id]);
+    });
+    document.getElementById("fill").style.width = (n / boxes.length * 100) + "%";
+    document.getElementById("count").textContent = n === boxes.length ? "أنجزت المحاور الخمسة" : "أنجزت " + n + " من " + boxes.length;
+  }
+  boxes.forEach(function (b) {
+    b.addEventListener("change", function () {
+      done[b.getAttribute("data-done")] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+      render();
+    });
+  });
+  // only one video plays at a time
+  var vids = document.querySelectorAll("video");
+  vids.forEach(function (v) { v.addEventListener("play", function () { vids.forEach(function (o) { if (o !== v) o.pause(); }); }); });
+  render();
+})();
+</script>
+</body>
+</html>
